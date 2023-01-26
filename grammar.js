@@ -50,6 +50,6 @@ module.exports = grammar({
     },
 })
 
-function sep(seperator, rule) {
-    return optional(seq(rule, repeat(seq(seperator, rule)), optional(seperator)))
+function sep(separator, rule) {
+    return optional(seq(rule, repeat(seq(separator, rule)), optional(separator)))
 }
