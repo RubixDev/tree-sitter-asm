@@ -6,7 +6,7 @@ module.exports = grammar({
     ],
 
     rules: {
-        program: $ => sep(repeat('\n'), $._item),
+        program: $ => sep(repeat1('\n'), $._item),
         _item: $ =>
             choice(
                 $.meta,
@@ -14,9 +14,9 @@ module.exports = grammar({
                 $.instruction,
             ),
 
-        meta: $ => prec.right(seq(field('kind', $.meta_ident), optional(choice($.ident, $.int)))),
+        meta: $ => seq(field('kind', $.meta_ident), optional(choice($.ident, $.int))),
         label: $ => seq($.ident, ':'),
-        instruction: $ => prec.right(seq(field('kind', $.word), sep(',', $._expr))),
+        instruction: $ => seq(field('kind', $.word), sep(',', $._expr)),
 
         _expr: $ => choice($.ptr, $.ident, $.int, $.string),
         ptr: $ =>
