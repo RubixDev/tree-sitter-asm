@@ -61,7 +61,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -175,6 +175,10 @@
     "named": false
   },
   {
+    "type": "*",
+    "named": false
+  },
+  {
     "type": "+",
     "named": false
   },
@@ -227,15 +231,19 @@
     "named": false
   },
   {
+    "type": "rel",
+    "named": false
+  },
+  {
     "type": "string",
     "named": true
   },
   {
     "type": "word",
-    "named": false
+    "named": true
   },
   {
     "type": "word",
-    "named": true
+    "named": false
   }
 ]
