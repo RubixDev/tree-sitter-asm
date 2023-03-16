@@ -20,10 +20,11 @@
   "dword"
   "qword"
   "ptr"
+  "rel"
 ] @keyword
 
 ; Operators & Punctuation
-["+" "-"] @operator
+["+" "-" "*"] @operator
 
 ["(" ")" "[" "]"]  @punctuation.bracket
 
