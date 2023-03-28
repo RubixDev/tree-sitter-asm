@@ -16,11 +16,18 @@ include = [
   "src/*",
 ]
 
+[features]
+default = ["tree-sitter-standard"]
+tree-sitter-standard = ["dep:tree-sitter-standard"]
+tree-sitter-c2rust = ["dep:tree-sitter-c2rust", "dep:tree-sitter-wasm-build-tool"]
+
 [lib]
 path = "bindings/rust/lib.rs"
 
 [dependencies]
-tree-sitter = "~0.20.3"
+tree-sitter-standard = { package = "tree-sitter", version = "0.20.9", optional = true }
+tree-sitter-c2rust = { version = "0.20.9", optional = true }
 
 [build-dependencies]
 cc = "1.0"
+tree-sitter-wasm-build-tool = { version = "0.1.0", optional = true }
