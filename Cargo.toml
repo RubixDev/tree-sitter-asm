@@ -1,6 +1,7 @@
 [package]
 name = "tree-sitter-asm"
 description = "assembly grammar for the tree-sitter parsing library"
+authors = ["RubixDev"]
 version = "0.1.0"
 keywords = ["incremental", "parsing"]
 categories = ["parsing", "text-editors"]
