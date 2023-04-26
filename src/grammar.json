@@ -217,6 +217,10 @@
         {
           "type": "SYMBOL",
           "name": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "float"
         }
       ]
     },
@@ -376,6 +380,10 @@
     "int": {
       "type": "PATTERN",
       "value": "-?([0-9][0-9_]*|0x[0-9A-Fa-f][0-9A-Fa-f_]*)"
+    },
+    "float": {
+      "type": "PATTERN",
+      "value": "-?[0-9][0-9_]*\\.([0-9][0-9_]*)?"
     },
     "string": {
       "type": "PATTERN",

@@ -11,6 +11,7 @@
 
 ; Literals
 (int) @number
+(float) @number
 (string) @string
 
 ; Keywords

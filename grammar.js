@@ -18,7 +18,7 @@ module.exports = grammar({
         label: $ => seq($.ident, ':', optional(seq('(', $.ident, ')'))),
         instruction: $ => seq(field('kind', $.word), sep(',', $._expr)),
 
-        _expr: $ => choice($.ptr, $.ident, $.int, $.string),
+        _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float),
         ptr: $ =>
             choice(
                 seq(
@@ -44,6 +44,7 @@ module.exports = grammar({
             ),
 
         int: $ => /-?([0-9][0-9_]*|0x[0-9A-Fa-f][0-9A-Fa-f_]*)/,
+        float: $ => /-?[0-9][0-9_]*\.([0-9][0-9_]*)?/,
         string: $ => /"[^"]*"/,
 
         word: $ => /[a-zA-Z0-9]+/,

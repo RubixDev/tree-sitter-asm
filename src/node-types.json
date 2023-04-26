@@ -38,6 +38,10 @@
       "required": false,
       "types": [
         {
+          "type": "float",
+          "named": true
+        },
+        {
           "type": "ident",
           "named": true
         },
@@ -211,6 +215,10 @@
     "named": false
   },
   {
+    "type": "float",
+    "named": true
+  },
+  {
     "type": "int",
     "named": true
   },
@@ -240,10 +248,10 @@
   },
   {
     "type": "word",
-    "named": true
+    "named": false
   },
   {
     "type": "word",
-    "named": false
+    "named": true
   }
 ]
