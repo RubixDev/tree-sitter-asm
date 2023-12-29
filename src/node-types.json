@@ -91,9 +91,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "float",
+          "named": true
+        },
         {
           "type": "ident",
           "named": true

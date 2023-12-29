@@ -14,8 +14,15 @@ module.exports = grammar({
                 $.label,
                 $.instruction,
             ),
-
-        meta: $ => seq(field('kind', $.meta_ident), optional(choice($.ident, $.int))),
+        
+        meta: $ => seq(
+            field('kind', $.meta_ident),
+            optional(choice(
+                $.ident,
+                seq($.int, repeat(seq(',', $.int))),
+                seq($.float, repeat(seq(',', $.float))),
+            ))
+        ),
         label: $ => seq($.ident, ':', optional(seq('(', $.ident, ')'))),
         instruction: $ => seq(field('kind', $.word), sep(',', $._expr)),
 
