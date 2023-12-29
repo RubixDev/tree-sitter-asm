@@ -3,6 +3,7 @@ module.exports = grammar({
     extras: $ => [
         / |\t|\r/,
         $.line_comment,
+        $.block_comment,
     ],
 
     rules: {
@@ -55,6 +56,12 @@ module.exports = grammar({
         ident: $ => choice($._ident, $.meta_ident, $.reg),
 
         line_comment: $ => /(\/\/|#|;).*/,
+        block_comment: $ =>
+            token(seq(
+                '/*',
+                /[^*]*\*+([^/*][^*]*\*+)*/,
+                '/',
+            )),
     },
 })
 
