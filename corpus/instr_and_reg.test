@@ -1,0 +1,62 @@
+==========
+Instruction -- No args
+==========
+MOVLPS
+---
+(program
+    (instruction kind: (word))) 
+
+==========
+Instruction -- One reg arg
+==========
+pushq %rbp
+---
+(program
+      (instruction
+            kind: (word)
+            (ident (reg))))
+
+==========
+Instruction -- Two reg args
+==========
+pushq %rbp, %rbp
+---
+(program
+      (instruction
+            kind: (word)
+            (ident (reg))
+            (ident (reg))))
+
+==========
+Instruction -- Pointer offset arg, reg arg
+==========
+movzbl	-1(%rbp), %eax
+---
+(program
+    (instruction
+        kind: (word)
+        (ptr
+            (int)
+            (reg))
+        (ident (reg))))
+
+==========
+Instruction -- Integer immediate arg, reg arg
+==========
+andl	$15, %eax
+---
+(program
+    (instruction
+        kind: (word)
+        (int)
+        (ident (reg))))
+
+==========
+Instruction -- Label arg
+==========
+jne	.L5
+---
+(program
+    (instruction
+        kind: (word)
+        (ident)))
