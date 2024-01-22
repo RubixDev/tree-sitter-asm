@@ -22,6 +22,7 @@ module.exports = grammar({
                     $.ident,
                     seq($.int, repeat(seq(',', $.int))),
                     seq($.float, repeat(seq(',', $.float))),
+                    seq($.string, repeat(seq(',', $.string))),
                 )),
             ),
         label: $ => seq($.ident, ':', optional(seq('(', $.ident, ')'))),

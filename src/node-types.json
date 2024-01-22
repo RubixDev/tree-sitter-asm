@@ -105,6 +105,10 @@
         {
           "type": "int",
           "named": true
+        },
+        {
+          "type": "string",
+          "named": true
         }
       ]
     }
