@@ -13,10 +13,13 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v4
 
-        - run: rustup toolchain install stable
+        - name: Install Rust Toolchain
+          uses: dtolnay/rust-toolchain@stable
 
         - name: Install tree-sitter cli
-          run: cargo install tree-sitter-cli
+          uses: taiki-e/install-action@v2
+          with:
+            tool: tree-sitter-cli
 
         - name: Run tree-sitter tests
           run: tree-sitter test
