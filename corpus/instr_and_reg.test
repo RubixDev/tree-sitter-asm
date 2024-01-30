@@ -52,7 +52,7 @@ andl	$15, %eax
         (ident (reg))))
 
 ==========
-Instruction -- Label arg
+Instruction -- Dotted label arg
 ==========
 jne	.L5
 ---
