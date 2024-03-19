@@ -25,11 +25,11 @@ module.exports = grammar({
                     seq($.string, repeat(seq(',', $.string))),
                 )),
             ),
-        label: $ => 
+        label: $ =>
             seq(
                 choice($.meta_ident, alias($.word, $.ident)),
-                ':', 
-                optional(seq('(', $.ident, ')'))
+                ':',
+                optional(seq('(', $.ident, ')')),
             ),
         instruction: $ => seq(field('kind', $.word), sep(',', $._expr)),
 
