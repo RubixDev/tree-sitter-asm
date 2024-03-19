@@ -61,6 +61,11 @@
     }
   },
   {
+    "type": "int",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "label",
     "named": true,
     "fields": {},
@@ -78,6 +83,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "line_comment",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "meta",
@@ -183,6 +193,10 @@
     "named": false
   },
   {
+    "type": "#",
+    "named": false
+  },
+  {
     "type": "(",
     "named": false
   },
@@ -232,14 +246,6 @@
   },
   {
     "type": "float",
-    "named": true
-  },
-  {
-    "type": "int",
-    "named": true
-  },
-  {
-    "type": "line_comment",
     "named": true
   },
   {

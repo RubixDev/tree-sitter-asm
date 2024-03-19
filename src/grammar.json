@@ -463,8 +463,28 @@
       ]
     },
     "int": {
-      "type": "PATTERN",
-      "value": "-?([0-9][0-9_]*|(0x|\\$)[0-9A-Fa-f][0-9A-Fa-f_]*)"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "#"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "-?([0-9][0-9_]*|(0x|\\$)[0-9A-Fa-f][0-9A-Fa-f_]*)"
+          }
+        }
+      ]
     },
     "float": {
       "type": "PATTERN",
@@ -521,8 +541,29 @@
       ]
     },
     "line_comment": {
-      "type": "PATTERN",
-      "value": "(\\/\\/|#|;).*"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "#"
+            },
+            {
+              "type": "IMMEDIATE_TOKEN",
+              "content": {
+                "type": "PATTERN",
+                "value": ".*"
+              }
+            }
+          ]
+        },
+        {
+          "type": "PATTERN",
+          "value": "(\\/\\/|;).*"
+        }
+      ]
     },
     "block_comment": {
       "type": "TOKEN",
@@ -565,4 +606,3 @@
   "inline": [],
   "supertypes": []
 }
-
