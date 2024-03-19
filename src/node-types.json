@@ -61,11 +61,6 @@
     }
   },
   {
-    "type": "int",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "label",
     "named": true,
     "fields": {},
@@ -75,6 +70,10 @@
       "types": [
         {
           "type": "ident",
+          "named": true
+        },
+        {
+          "type": "meta_ident",
           "named": true
         }
       ]
@@ -184,10 +183,6 @@
     "named": false
   },
   {
-    "type": "$",
-    "named": false
-  },
-  {
     "type": "(",
     "named": false
   },
@@ -237,6 +232,10 @@
   },
   {
     "type": "float",
+    "named": true
+  },
+  {
+    "type": "int",
     "named": true
   },
   {
