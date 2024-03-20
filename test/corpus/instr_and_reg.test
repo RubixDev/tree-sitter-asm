@@ -79,6 +79,21 @@ adr X1, helloworld
               (reg
               (word)))))
 
+==========
+Instruction -- Section address arg, reg arg (GAS x86)
+==========
+mov $msg, %ecx
+---
+(program
+    (instruction
+        (word)
+        (ident
+            (reg
+                (address)))
+         (ident
+              (reg))))
+
+==========
 Instruction -- Dotted label arg
 ==========
 jne	.L5

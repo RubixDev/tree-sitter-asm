@@ -70,7 +70,8 @@ module.exports = grammar({
 
         word: $ => /[a-zA-Z0-9_]+/,
         _reg: $ => /%?[a-z0-9]+/,
-        reg: $ => choice($._reg, $.word),
+        address: $ => /\$[a-zA-Z0-9_]+/, // GAS x86 address
+        reg: $ => choice($._reg, $.word, $.address),
         meta_ident: $ => /\.[a-z_]+/,
         _ident: $ => /[a-zA-Z_0-9.]+/,
         ident: $ => choice($._ident, $.meta_ident, $.reg),
