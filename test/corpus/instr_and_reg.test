@@ -4,7 +4,7 @@ Instruction -- No args
 MOVLPS
 ---
 (program
-    (instruction kind: (word))) 
+    (instruction kind: (word)))
 
 ==========
 Instruction -- One reg arg
@@ -41,7 +41,7 @@ movzbl	-1(%rbp), %eax
         (ident (reg))))
 
 ==========
-Instruction -- Integer immediate arg, reg arg
+Instruction -- Integer immediate arg, reg arg (GAS x86)
 ==========
 andl	$15, %eax
 ---
@@ -52,6 +52,33 @@ andl	$15, %eax
         (ident (reg))))
 
 ==========
+Instruction -- Reg arg, Integer immediate arg (ARM A64)
+==========
+mov X10, #1
+---
+(program
+    (instruction
+        (word)
+        (ident
+            (reg
+                (word)))
+        (int)))
+
+==========
+Instruction -- Reg arg, section address arg (ARM A64)
+==========
+adr X1, helloworld
+---
+(program
+    (instruction
+        (word)
+        (ident
+            (reg
+                (word)))
+         (ident
+              (reg
+              (word)))))
+
 Instruction -- Dotted label arg
 ==========
 jne	.L5
