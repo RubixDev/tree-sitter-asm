@@ -503,6 +503,10 @@
       "type": "PATTERN",
       "value": "%?[a-z0-9]+"
     },
+    "address": {
+      "type": "PATTERN",
+      "value": "\\$[a-zA-Z0-9_]+"
+    },
     "reg": {
       "type": "CHOICE",
       "members": [
@@ -513,6 +517,10 @@
         {
           "type": "SYMBOL",
           "name": "word"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "address"
         }
       ]
     },
