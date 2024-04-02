@@ -56,6 +56,14 @@ module.exports = grammar({
                     $.int,
                     ']',
                 ),
+                // Aarch64
+                seq(
+                    '[',
+                    $.reg,
+                    optional(seq(',', $.int)),
+                    ']',
+                    optional('!')
+                ),
             ),
 
         int: $ => {
