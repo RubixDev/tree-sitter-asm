@@ -199,6 +199,15 @@
                   },
                   "named": true,
                   "value": "ident"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_ident"
+                  },
+                  "named": true,
+                  "value": "ident"
                 }
               ]
             },
