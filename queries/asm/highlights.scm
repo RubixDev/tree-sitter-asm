@@ -1,6 +1,6 @@
 ; General
 (label
-  (ident) @label)
+  [(ident) (word)] @label)
 
 (reg) @variable.builtin
 
@@ -9,6 +9,9 @@
 
 (instruction
   kind: (_) @function.builtin)
+
+(const
+  name: (word) @constant)
 
 ; Comments
 [
@@ -31,6 +34,8 @@
   "qword"
   "ptr"
   "rel"
+  "label"
+  "const"
 ] @keyword
 
 ; Operators & Punctuation
@@ -38,6 +43,11 @@
   "+"
   "-"
   "*"
+  "/"
+  "%"
+  "|"
+  "^"
+  "&"
 ] @operator
 
 [
