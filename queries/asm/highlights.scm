@@ -1,10 +1,14 @@
 ; General
-(label (ident) @label)
+(label
+  (ident) @label)
+
 (reg) @variable.builtin
+
 (meta
   kind: (_) @function.builtin)
+
 (instruction
-  kind: (_) @function.call)
+  kind: (_) @function.builtin)
 
 ; Comments
 [
@@ -14,7 +18,9 @@
 
 ; Literals
 (int) @number
-(float) @number
+
+(float) @number.float
+
 (string) @string
 
 ; Keywords
@@ -28,8 +34,20 @@
 ] @keyword
 
 ; Operators & Punctuation
-["+" "-" "*"] @operator
+[
+  "+"
+  "-"
+  "*"
+] @operator
 
-["(" ")" "[" "]"]  @punctuation.bracket
+[
+  "("
+  ")"
+  "["
+  "]"
+] @punctuation.bracket
 
-["," ":"] @punctuation.delimiter
+[
+  ","
+  ":"
+] @punctuation.delimiter
