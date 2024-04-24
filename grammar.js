@@ -5,6 +5,12 @@ module.exports = grammar({
         $.line_comment,
         $.block_comment,
     ],
+    conflicts: $ => [
+        [
+            $._expr,
+            $._tc_expr,
+        ],
+    ],
 
     rules: {
         program: $ => sep(repeat1('\n'), $._item),
@@ -12,6 +18,7 @@ module.exports = grammar({
             choice(
                 $.meta,
                 $.label,
+                $.const,
                 $.instruction,
             ),
 
@@ -26,12 +33,19 @@ module.exports = grammar({
                 )),
             ),
         label: $ =>
-            seq(
-                choice($.meta_ident, alias($.word, $.ident)),
-                ':',
-                optional(seq('(', $.ident, ')')),
+            choice(
+                seq(
+                    choice($.meta_ident, alias($.word, $.ident)),
+                    ':',
+                    optional(seq('(', $.ident, ')')),
+                ),
+                seq(
+                    'label',
+                    field('name', $.word),
+                ),
             ),
-        instruction: $ => seq(field('kind', $.word), sep(',', $._expr)),
+        const: $ => seq('const', field('name', $.word), field('value', $._tc_expr)),
+        instruction: $ => seq(field('kind', $.word), choice(sep(',', $._expr), repeat($._tc_expr))),
 
         _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float),
         ptr: $ =>
@@ -62,12 +76,38 @@ module.exports = grammar({
                     $.reg,
                     optional(seq(',', $.int)),
                     ']',
-                    optional('!')
+                    optional('!'),
+                ),
+            ),
+        // Turing Complete
+        _tc_expr: $ =>
+            choice(
+                $.ident,
+                $.int,
+                $.string,
+                $.tc_infix,
+            ),
+        tc_infix: $ =>
+            choice(
+                ...[
+                    ['+', 0],
+                    ['-', 0],
+                    ['*', 1],
+                    ['/', 1],
+                    ['%', 1],
+                    ['|', 2],
+                    ['^', 3],
+                    ['&', 4],
+                ].map(([op, p]) =>
+                    prec.left(
+                        p,
+                        seq(field('lhs', $._tc_expr), field('op', op), field('rhs', $._tc_expr)),
+                    )
                 ),
             ),
 
         int: $ => {
-            const _int = /-?([0-9][0-9_]*|(0x|\$)[0-9A-Fa-f][0-9A-Fa-f_]*)/
+            const _int = /-?([0-9][0-9_]*|(0x|\$)[0-9A-Fa-f][0-9A-Fa-f_]*|0b[01][01_]*)/
             return choice(
                 seq('#', token.immediate(_int)),
                 _int,
