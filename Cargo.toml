@@ -31,4 +31,4 @@ tree-sitter-c2rust = { version = "0.22.6", optional = true }
 
 [build-dependencies]
 cc = "1.0"
-tree-sitter-wasm-build-tool = { version = "0.2.2", optional = true }
+tree-sitter-wasm-build-tool = { version = "0.1.0", optional = true }
