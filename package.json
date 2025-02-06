@@ -12,10 +12,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rush-rs/tree-sitter-asm"
+    "url": "https://github.com/RubixDev/tree-sitter-asm"
   },
-  "keywords": ["parser", "lexer"],
-  "files": ["grammar.js", "binding.gyp", "prebuilds/**", "bindings/node/*", "queries/*", "src/**"],
+  "keywords": [
+    "parser",
+    "lexer"
+  ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**"
+  ],
   "author": "RubixDev",
   "license": "MIT",
   "dependencies": {
@@ -33,9 +43,5 @@
   "devDependencies": {
     "prebuildify": "^6.0.1",
     "tree-sitter-cli": "^0.22.6"
-  },
-  "tree-sitter": [{
-    "scope": "source.asm",
-    "file-types": ["s", "asm", "assembly"]
-  }]
+  }
 }
