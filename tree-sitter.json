@@ -9,7 +9,8 @@
         "s",
         "asm",
         "assembly"
-      ]
+      ],
+      "highlights": "queries/asm/highlights.scm"
     }
   ],
   "metadata": {
