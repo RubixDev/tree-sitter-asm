@@ -10,7 +10,8 @@
         "asm",
         "assembly"
       ],
-      "highlights": "queries/asm/highlights.scm"
+      "highlights": "queries/asm/highlights.scm",
+      "injections": "queries/asm/injections.scm"
     }
   ],
   "metadata": {
