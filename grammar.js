@@ -45,8 +45,13 @@ module.exports = grammar({
                 ),
             ),
         const: $ => seq('const', field('name', $.word), field('value', $._tc_expr)),
-        instruction: $ => seq(field('kind', $.word), choice(sep(',', $._expr), repeat($._tc_expr))),
-
+        instruction: $ => seq(
+          field('kind', $.word),
+          optional(choice(
+            $._expr,
+            sep(',', $._expr)
+          ))
+        ),
         _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float),
         ptr: $ =>
             choice(
