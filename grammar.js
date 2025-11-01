@@ -46,8 +46,16 @@ module.exports = grammar({
             ),
         const: $ => seq('const', field('name', $.word), field('value', $._tc_expr)),
         instruction: $ => seq(field('kind', $.word), choice(sep(',', $._expr), repeat($._tc_expr))),
+        _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float, $.list),
 
-        _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float),
+        // ARMv7
+        list: $ =>
+            seq(
+                '{',
+                optional(seq($.reg, repeat(seq(choice(',', '-'), $.reg)), optional(','))),
+                '}'
+            ),
+
         ptr: $ =>
             choice(
                 seq(
