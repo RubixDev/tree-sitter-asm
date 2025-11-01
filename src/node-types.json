@@ -183,7 +183,6 @@
   {
     "type": "program",
     "named": true,
-    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -218,6 +217,10 @@
       "types": [
         {
           "type": "ident",
+          "named": true
+        },
+        {
+          "type": "instruction",
           "named": true
         },
         {
