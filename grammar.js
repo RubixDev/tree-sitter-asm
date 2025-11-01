@@ -37,7 +37,7 @@ module.exports = grammar({
                 seq(
                     choice($.meta_ident, alias($.word, $.ident), alias($._ident, $.ident)),
                     ':',
-                    optional(seq('(', $.ident, ')')),
+                    optional(choice(seq('(', $.ident, ')'), $.meta)),
                 ),
                 seq(
                     'label',

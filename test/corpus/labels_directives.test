@@ -1,5 +1,5 @@
 ==========
-Basic label 
+Basic label
 ==========
 main:
 ---
@@ -7,7 +7,7 @@ main:
     (label (ident)))
 
 ==========
-Local label 
+Local label
 ==========
 .label:
 ---
@@ -78,4 +78,16 @@ Directive -- Multiple floating point args
         (meta_ident)
         (float)
         (float)))
+
+==========
+Label and Directive -- Single integer arg
+==========
+length: .word 8
+---
+(program
+      (label
+        (ident)
+        (meta
+          (meta_ident)
+          (int))))
 
