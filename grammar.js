@@ -45,7 +45,7 @@ module.exports = grammar({
                 ),
             ),
         const: $ => seq('const', field('name', $.word), field('value', $._tc_expr)),
-        instruction: $ => seq(field('kind', $.word), choice(sep(',', $._expr), repeat($._tc_expr))),
+        instruction: $ => prec.left(1, seq(field('kind', $.word), choice(sep(',', $._expr), repeat($._tc_expr)))),
 
         _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float),
         ptr: $ =>
@@ -70,13 +70,22 @@ module.exports = grammar({
                     $.int,
                     ']',
                 ),
-                // Aarch64
+                // Aarch64 and ARMv7
                 seq(
                     '[',
                     $.reg,
-                    optional(seq(',', $.int)),
+                    optional(seq(',', choice($.int, seq($.reg, optional(seq(',', seq($.instruction, $.int))))))),
                     ']',
                     optional('!'),
+                ),
+                prec.right(
+                    1,
+                    seq(
+                        '[',
+                        $.reg,
+                        ']',
+                        optional(seq(',', choice($.int, seq($.reg, optional(seq(',', seq($.instruction, $.int))))))),
+                    ),
                 ),
             ),
         // Turing Complete
@@ -110,6 +119,7 @@ module.exports = grammar({
             const _int = /-?([0-9][0-9_]*|(0x|\$)[0-9A-Fa-f][0-9A-Fa-f_]*|0b[01][01_]*)/
             return choice(
                 seq('#', token.immediate(_int)),
+                seq('#', _int),
                 _int,
             )
         },
