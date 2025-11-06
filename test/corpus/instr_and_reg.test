@@ -132,6 +132,26 @@ adr X1, helloworld
               (word)))))
 
 ==========
+Instruction -- List of registers with range (ARMv7)
+==========
+PUSH { V1, V2, V3-V5, LR }
+---
+(program
+  (instruction
+    (word)
+    (list
+      (reg
+        (word))
+      (reg
+        (word))
+      (reg
+        (word))
+      (reg
+        (word))
+      (reg
+        (word)))))
+
+==========
 Instruction -- Section address arg, reg arg (GAS x86)
 ==========
 mov $msg, %ecx
