@@ -174,3 +174,18 @@ jne	.L5
     (instruction
         kind: (word)
         (ident)))
+
+==========
+Instruction -- Reg arg, address arg (ARMv7)
+==========
+LDR A1, =addr
+---
+(program
+  (instruction
+    (word)
+    (ident
+      (reg
+        (word)))
+    (ident
+      (reg
+        (address)))))
