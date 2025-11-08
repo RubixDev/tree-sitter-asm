@@ -39,6 +39,19 @@ String literal
         (string)))
 
 ==========
+String literal with single quotes
+==========
+cmp byte ptr [rdi], '"'
+---
+(program
+      (instruction
+        (word)
+        (ptr
+            (reg
+                (word)))
+        (string)))
+
+==========
 Comma separated list of integer literals base 10
 ==========
 .int 123, 456, 789
