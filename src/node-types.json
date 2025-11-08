@@ -273,6 +273,11 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "tc_infix",
     "named": true,
     "fields": {
@@ -467,10 +472,6 @@
   {
     "type": "rel",
     "named": false
-  },
-  {
-    "type": "string",
-    "named": true
   },
   {
     "type": "word",
