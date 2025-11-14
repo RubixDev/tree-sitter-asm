@@ -582,17 +582,12 @@
                                       "value": ","
                                     },
                                     {
-                                      "type": "SEQ",
-                                      "members": [
-                                        {
-                                          "type": "SYMBOL",
-                                          "name": "instruction"
-                                        },
-                                        {
-                                          "type": "SYMBOL",
-                                          "name": "int"
-                                        }
-                                      ]
+                                      "type": "SYMBOL",
+                                      "name": "instruction"
+                                    },
+                                    {
+                                      "type": "SYMBOL",
+                                      "name": "int"
                                     }
                                   ]
                                 },
@@ -683,17 +678,12 @@
                                         "value": ","
                                       },
                                       {
-                                        "type": "SEQ",
-                                        "members": [
-                                          {
-                                            "type": "SYMBOL",
-                                            "name": "instruction"
-                                          },
-                                          {
-                                            "type": "SYMBOL",
-                                            "name": "int"
-                                          }
-                                        ]
+                                        "type": "SYMBOL",
+                                        "name": "instruction"
+                                      },
+                                      {
+                                        "type": "SYMBOL",
+                                        "name": "int"
                                       }
                                     ]
                                   },
@@ -1024,19 +1014,6 @@
                 "type": "PATTERN",
                 "value": "-?([0-9][0-9_]*|(0x|\\$)[0-9A-Fa-f][0-9A-Fa-f_]*|0b[01][01_]*)"
               }
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "#"
-            },
-            {
-              "type": "PATTERN",
-              "value": "-?([0-9][0-9_]*|(0x|\\$)[0-9A-Fa-f][0-9A-Fa-f_]*|0b[01][01_]*)"
             }
           ]
         },

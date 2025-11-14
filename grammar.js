@@ -74,7 +74,7 @@ module.exports = grammar({
                 seq(
                     '[',
                     $.reg,
-                    optional(seq(',', choice($.int, seq($.reg, optional(seq(',', seq($.instruction, $.int))))))),
+                    optional(seq(',', choice($.int, seq($.reg, optional(seq(',', $.instruction, $.int)))))),
                     ']',
                     optional('!'),
                 ),
@@ -84,7 +84,7 @@ module.exports = grammar({
                         '[',
                         $.reg,
                         ']',
-                        optional(seq(',', choice($.int, seq($.reg, optional(seq(',', seq($.instruction, $.int))))))),
+                        optional(seq(',', choice($.int, seq($.reg, optional(seq(',', $.instruction, $.int)))))),
                     ),
                 ),
             ),
@@ -119,7 +119,6 @@ module.exports = grammar({
             const _int = /-?([0-9][0-9_]*|(0x|\$)[0-9A-Fa-f][0-9A-Fa-f_]*|0b[01][01_]*)/
             return choice(
                 seq('#', token.immediate(_int)),
-                seq('#', _int),
                 _int,
             )
         },
