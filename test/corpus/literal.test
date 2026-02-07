@@ -45,7 +45,7 @@ cmp byte ptr [rdi], '"'
 ---
 (program
       (instruction
-        (word)
+        (op)
         (ptr
             (reg
                 (word)))

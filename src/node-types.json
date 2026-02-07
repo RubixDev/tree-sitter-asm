@@ -65,7 +65,7 @@
         "required": true,
         "types": [
           {
-            "type": "word",
+            "type": "op",
             "named": true
           }
         ]
@@ -120,6 +120,10 @@
         "required": false,
         "types": [
           {
+            "type": "op",
+            "named": true
+          },
+          {
             "type": "word",
             "named": true
           }
@@ -148,6 +152,7 @@
   {
     "type": "line_comment",
     "named": true,
+    "extra": true,
     "fields": {}
   },
   {
@@ -206,6 +211,7 @@
   {
     "type": "program",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -263,6 +269,10 @@
       "types": [
         {
           "type": "address",
+          "named": true
+        },
+        {
+          "type": "flag",
           "named": true
         },
         {
@@ -435,7 +445,8 @@
   },
   {
     "type": "block_comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "byte",
@@ -450,6 +461,10 @@
     "named": false
   },
   {
+    "type": "flag",
+    "named": true
+  },
+  {
     "type": "float",
     "named": true
   },
@@ -459,6 +474,10 @@
   },
   {
     "type": "meta_ident",
+    "named": true
+  },
+  {
+    "type": "op",
     "named": true
   },
   {
@@ -475,11 +494,11 @@
   },
   {
     "type": "word",
-    "named": false
+    "named": true
   },
   {
     "type": "word",
-    "named": true
+    "named": false
   },
   {
     "type": "{",

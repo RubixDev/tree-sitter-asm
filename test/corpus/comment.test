@@ -13,7 +13,7 @@ MOVLPS ; This is an in-line comment
 ---
 (program
     (instruction
-        kind: (word))
+        kind: (op))
     (line_comment))
 
 ==========
@@ -23,7 +23,7 @@ pushq %rbp; This is an in-line comment
 ---
 (program
     (instruction 
-        kind: (word)
+        kind: (op)
         (ident (reg)))
     (line_comment))
 ==========
@@ -33,7 +33,7 @@ pushq %rbp ; This is an in-line comment
 ---
 (program
     (instruction 
-        kind: (word)
+        kind: (op)
         (ident (reg)))
     (line_comment))
 ==========

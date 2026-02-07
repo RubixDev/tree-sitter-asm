@@ -35,17 +35,17 @@ module.exports = grammar({
         label: $ =>
             choice(
                 seq(
-                    choice($.meta_ident, alias($.word, $.ident), alias($._ident, $.ident)),
+                    choice($.meta_ident, alias(choice($.op, $.word, $._ident), $.ident)),
                     ':',
                     optional(choice(seq('(', $.ident, ')'), $.meta)),
                 ),
                 seq(
                     'label',
-                    field('name', $.word),
+                    field('name', choice($.op, $.word)),
                 ),
             ),
         const: $ => seq('const', field('name', $.word), field('value', $._tc_expr)),
-        instruction: $ => seq(field('kind', $.word), choice(sep(',', $._expr), repeat($._tc_expr))),
+        instruction: $ => seq(field('kind', $.op), choice(sep(',', $._expr), repeat($._tc_expr))),
         _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float, $.list),
 
         // ARMv7
@@ -128,10 +128,12 @@ module.exports = grammar({
                 /'[^']*'/
 	    ),
 
+        op: $ => /[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z0-9_]+)*/,
         word: $ => /[a-zA-Z0-9_]+/,
         _reg: $ => /%?[a-z0-9]+/,
         address: $ => /[=\$][a-zA-Z0-9_]+/, // GAS x86 address
-        reg: $ => choice($._reg, $.word, $.address),
+        flag: $ => /[a-zA-Z0-9_]+.t/, // RISC-V vector mask flag
+        reg: $ => choice($._reg, $.word, $.address, $.flag),
         meta_ident: $ => /\.[a-z_]+/,
         _ident: $ => /[a-zA-Z_0-9.]+/,
         ident: $ => choice($._ident, $.meta_ident, $.reg),

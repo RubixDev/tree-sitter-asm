@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "asm",
   "rules": {
     "program": {
@@ -194,17 +195,21 @@
                 {
                   "type": "ALIAS",
                   "content": {
-                    "type": "SYMBOL",
-                    "name": "word"
-                  },
-                  "named": true,
-                  "value": "ident"
-                },
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_ident"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "op"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "word"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_ident"
+                      }
+                    ]
                   },
                   "named": true,
                   "value": "ident"
@@ -262,8 +267,17 @@
               "type": "FIELD",
               "name": "name",
               "content": {
-                "type": "SYMBOL",
-                "name": "word"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "op"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "word"
+                  }
+                ]
               }
             }
           ]
@@ -303,7 +317,7 @@
           "name": "kind",
           "content": {
             "type": "SYMBOL",
-            "name": "word"
+            "name": "op"
           }
         },
         {
@@ -996,6 +1010,10 @@
         }
       ]
     },
+    "op": {
+      "type": "PATTERN",
+      "value": "[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z0-9_]+)*"
+    },
     "word": {
       "type": "PATTERN",
       "value": "[a-zA-Z0-9_]+"
@@ -1007,6 +1025,10 @@
     "address": {
       "type": "PATTERN",
       "value": "[=\\$][a-zA-Z0-9_]+"
+    },
+    "flag": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9_]+.t"
     },
     "reg": {
       "type": "CHOICE",
@@ -1022,6 +1044,10 @@
         {
           "type": "SYMBOL",
           "name": "address"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "flag"
         }
       ]
     },
@@ -1119,5 +1145,6 @@
   "precedences": [],
   "externals": [],
   "inline": [],
-  "supertypes": []
+  "supertypes": [],
+  "reserved": {}
 }
