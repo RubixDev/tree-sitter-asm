@@ -189,3 +189,31 @@ LDR A1, =addr
     (ident
       (reg
         (address)))))
+
+==========
+Instruction -- mov from offset label (GAS x86)
+==========
+mov rsi, offset notImplemented
+---
+
+(program
+  (instruction
+    (word)
+    (ident
+      (reg
+        (word)))
+    (word)))
+
+==========
+Instruction -- mov from offset label (GAS x86)
+==========
+mov rsi, OFFSET notImplemented
+---
+
+(program
+  (instruction
+    (word)
+    (ident
+      (reg
+        (word)))
+    (word)))

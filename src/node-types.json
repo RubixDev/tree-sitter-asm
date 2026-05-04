@@ -102,6 +102,10 @@
         {
           "type": "tc_infix",
           "named": true
+        },
+        {
+          "type": "word",
+          "named": true
         }
       ]
     }
@@ -148,6 +152,7 @@
   {
     "type": "line_comment",
     "named": true,
+    "extra": true,
     "fields": {}
   },
   {
@@ -206,6 +211,7 @@
   {
     "type": "program",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -418,6 +424,10 @@
     "named": false
   },
   {
+    "type": "OFFSET",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -435,7 +445,8 @@
   },
   {
     "type": "block_comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "byte",
@@ -460,6 +471,10 @@
   {
     "type": "meta_ident",
     "named": true
+  },
+  {
+    "type": "offset",
+    "named": false
   },
   {
     "type": "ptr",

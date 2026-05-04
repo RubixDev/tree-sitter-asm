@@ -46,7 +46,7 @@ module.exports = grammar({
             ),
         const: $ => seq('const', field('name', $.word), field('value', $._tc_expr)),
         instruction: $ => seq(field('kind', $.word), choice(sep(',', $._expr), repeat($._tc_expr))),
-        _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float, $.list),
+        _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float, $.list, seq(choiceBetweenCase('offset'), $.word)),
 
         // ARMv7
         list: $ =>
@@ -152,4 +152,10 @@ module.exports = grammar({
 
 function sep(separator, rule) {
     return optional(seq(rule, repeat(seq(separator, rule)), optional(separator)))
+}
+
+function choiceBetweenCase(...values) {
+  return choice(
+    ...values.flatMap(v => [String(v).toLowerCase(), String(v).toUpperCase()])
+  );
 }
