@@ -1,0 +1,116 @@
+==========
+Macro -- use macro Parameters
+==========
+mov rax, \parm
+---
+(program
+  (instruction
+    (word)
+    (ident
+      (reg
+        (word)))
+    (ident
+      (reg
+        (word)))))
+==========
+Macro -- simple macro
+==========
+.macro foo r
+mov \r, 0
+.endm
+---
+(program
+  (meta
+    (meta_ident)
+    (ident
+      (reg
+        (word)))
+    (ident
+      (reg
+        (word))))
+  (instruction
+    (word)
+    (ident
+      (reg
+        (word)))
+    (int))
+  (meta
+    (meta_ident)))
+==========
+Macro -- simple macro multi args
+==========
+.macro foo r, v
+mov \r, \v
+.endm
+---
+(program
+  (meta
+    (meta_ident)
+    (ident
+      (reg
+        (word)))
+    (ident
+      (reg
+        (word)))
+    (ident
+      (reg
+        (word))))
+  (instruction
+    (word)
+    (ident
+      (reg
+        (word)))
+    (ident
+      (reg
+        (word))))
+  (meta
+    (meta_ident)))
+==========
+Macro -- example macro of gas doc
+==========
+.macro  sum from=0, to=5
+.long   \from
+.if     \to-\from
+sum     "(\from+1)",\to
+.endif
+.endm
+---
+(program
+  (meta
+    (meta_ident)
+    (ident
+      (reg
+        (word)))
+    (ident
+      (reg
+        (word)))
+    (int)
+    (ident
+      (reg
+        (word)))
+    (int))
+  (meta
+    (meta_ident)
+    (ident
+      (reg
+        (word))))
+  (meta
+    (meta_ident)
+    (op_expr
+      (ident
+        (reg
+          (word)))
+      (infix_operator)
+      (ident
+        (reg
+          (word)))))
+  (instruction
+    (word)
+    (string)
+    (ident
+      (reg
+        (word))))
+  (meta
+    (meta_ident))
+  (meta
+    (meta_ident)))

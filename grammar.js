@@ -13,7 +13,7 @@ module.exports = grammar({
     ],
 
     rules: {
-        program: $ => sep(repeat1('\n'), $._item),
+        program: $ => repeatSep(repeat1('\n'), $._item),
         _item: $ =>
             choice(
                 $.meta,
@@ -26,7 +26,11 @@ module.exports = grammar({
             seq(
                 field('kind', $.meta_ident),
                 optional(choice(
-                    $.ident,
+                    seq(
+                      $.ident, // macro name
+                      optional(seq($._macro_arg, repeat(seq(',', $._macro_arg))))
+                    ),
+                    $.op_expr,
                     seq($.int, repeat(seq(',', $.int))),
                     seq($.float, repeat(seq(',', $.float))),
                     seq($.string, repeat(seq(',', $.string))),
@@ -45,8 +49,8 @@ module.exports = grammar({
                 ),
             ),
         const: $ => seq('const', field('name', $.word), field('value', $._tc_expr)),
-        instruction: $ => seq(field('kind', $.word), choice(sep(',', $._expr), repeat($._tc_expr))),
-        _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float, $.list),
+        instruction: $ => seq(field('kind', $.word), choice(repeatSep(',', $._expr), repeat($._tc_expr))),
+        _expr: $ => choice($.ptr, $.ident, $.int, $.string, $.float, $.list, seq(choiceBetweenCase('offset'), $.word)),
 
         // ARMv7
         list: $ =>
@@ -58,6 +62,7 @@ module.exports = grammar({
 
         ptr: $ =>
             choice(
+                // Intel
                 seq(
                     optional(seq(choice('byte', 'word', 'dword', 'qword'), 'ptr')),
                     '[',
@@ -65,10 +70,19 @@ module.exports = grammar({
                     optional(seq(choice('+', '-'), choice($.int, $.ident))),
                     ']',
                 ),
+                // AT&T
+                // DISP(BASE, INDEX, SCALE)
                 seq(
-                    optional($.int),
+                    field('disp', optional($.int)),
                     '(',
-                    $.reg,
+                    choice(
+                      $.reg,
+                      sep(',',
+                        field('base', optional($.reg)),
+                        field('index', $.reg),
+                        field('scale', optional(choice('1', '2', '4', '8'))),
+                      ),
+                    ),
                     ')',
                 ),
                 seq(
@@ -115,9 +129,9 @@ module.exports = grammar({
             ),
 
         int: $ => {
-            const _int = /-?([0-9][0-9_]*|(0x|\$)[0-9A-Fa-f][0-9A-Fa-f_]*|0b[01][01_]*)/
+            const _int = /([0-9][0-9_]*|(0x|\$)[0-9A-Fa-f][0-9A-Fa-f_]*|0b[01][01_]*)/
             return choice(
-                seq('#', token.immediate(_int)),
+                seq(optional(choice('#', '$')), optional($.prefix_operator), token.immediate(_int)),
                 _int,
             )
         },
@@ -128,13 +142,22 @@ module.exports = grammar({
                 /'[^']*'/
 	    ),
 
-        word: $ => /[a-zA-Z0-9_]+/,
+        word: $ => /[\\a-zA-Z0-9_]+/,
         _reg: $ => /%?[a-z0-9]+/,
         address: $ => /[=\$][a-zA-Z0-9_]+/, // GAS x86 address
         reg: $ => choice($._reg, $.word, $.address),
         meta_ident: $ => /\.[a-z_]+/,
         _ident: $ => /[a-zA-Z_0-9.]+/,
         ident: $ => choice($._ident, $.meta_ident, $.reg),
+        _macro_arg_value: $ => choice($.int, $.float, $.string, $.ident),
+        _macro_arg: $ => seq($.ident, optional(seq("=", $._macro_arg_value))),
+        prefix_operator: $ => /[~-]/,
+        infix_operator: $ => /[\/%*<>|&^!+-]|<<|>>/,
+        op_expr: $ => seq(
+          field('lhs', $._expr),
+          field('op', $.infix_operator),
+          field('rhs', choice($._expr, $.op_expr)),
+        ),
 
         line_comment: $ =>
             choice(
@@ -150,6 +173,20 @@ module.exports = grammar({
     },
 })
 
-function sep(separator, rule) {
+function repeatSep(separator, rule) {
     return optional(seq(rule, repeat(seq(separator, rule)), optional(separator)))
+}
+function choiceBetweenCase(...values) {
+  return choice(
+    ...values.flatMap(v => [String(v).toLowerCase(), String(v).toUpperCase()])
+  );
+}
+
+function sep(separator, ...rules) {
+  if (rules.length === 0) return optional();
+  let parts = [rules[0]];
+  for (let i = 1; i < rules.length; i++) {
+    parts.push(separator, rules[i]);
+  }
+  return seq(...parts);
 }
