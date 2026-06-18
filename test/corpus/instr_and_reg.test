@@ -36,7 +36,7 @@ movzbl	-1(%rbp), %eax
     (instruction
         kind: (word)
         (ptr
-            (int)
+            disp: (int)
             (reg))
         (ident (reg))))
 
@@ -189,3 +189,170 @@ LDR A1, =addr
     (ident
       (reg
         (address)))))
+
+==========
+Instruction -- Memory addressing source omission of DISP and SCALE (x86 AT&T)
+==========
+leaq (%rdi, %rdi, ), %rdi
+---
+
+(program
+  (instruction
+    (word)
+    (ptr
+      (reg)
+      (reg))
+    (ident
+      (reg))))
+
+==========
+Instruction -- Memory addressing source omission of SCALE (x86 AT&T)
+==========
+leaq 5(%rdi, %rdi, ), %rdi
+---
+
+(program
+  (instruction
+    (word)
+    (ptr
+      (int)
+      (reg)
+      (reg))
+    (ident
+      (reg))))
+
+==========
+Instruction -- Memory addressing source omission of BASE and SCALE (x86 AT&T)
+==========
+leaq 5(, %rdi, ), %rdi
+---
+
+(program
+  (instruction
+    (word)
+    (ptr
+      (int)
+      (reg))
+    (ident
+      (reg))))
+
+==========
+Instruction -- Memory addressing source omission of DISP, BASE and SCALE (x86 AT&T)
+==========
+leaq (, %rdi, ), %rdi
+---
+
+(program
+  (instruction
+    (word)
+    (ptr
+      (reg))
+    (ident
+      (reg))))
+
+==========
+Instruction -- Memory addressing source omission of DISP and BASE (x86 AT&T)
+==========
+leaq (, %rdi, 4), %rdi
+---
+
+(program
+  (instruction
+    (word)
+    (ptr
+      (reg))
+    (ident
+      (reg))))
+
+==========
+Instruction -- Memory addressing source omission of BASE (x86 AT&T)
+==========
+leaq 4(, %rdi, 4), %rdi
+---
+
+(program
+  (instruction
+    (word)
+    (ptr
+      (int)
+      (reg))
+    (ident
+      (reg))))
+
+==========
+Instruction -- Memory addressing destination omission of DISP and SCALE (x86 AT&T)
+==========
+movq $rax, (%rdi, %rdi, )
+---
+
+(program
+  (instruction
+    (word)
+    (ident
+      (reg
+        (address)))
+    (ptr
+      (reg)
+      (reg))))
+
+==========
+Instruction -- Memory addressing destination omission of DISP, BASE and SCALE (x86 AT&T)
+==========
+movq $rax, (, %rdi, )
+---
+
+(program
+  (instruction
+    (word)
+    (ident
+      (reg
+        (address)))
+    (ptr
+      (reg))))
+
+==========
+Instruction -- Memory addressing destination omission of BASE and SCALE (x86 AT&T)
+==========
+movq $rax, 1(, %rdi, )
+---
+
+(program
+  (instruction
+    (word)
+    (ident
+      (reg
+        (address)))
+    (ptr
+      (int)
+      (reg))))
+
+==========
+Instruction -- Memory addressing destination omission of DISP and BASE (x86 AT&T)
+==========
+movq $rax, (, %rdi, 8)
+---
+
+(program
+  (instruction
+    (word)
+    (ident
+      (reg
+        (address)))
+    (ptr
+      (reg))))
+
+==========
+Instruction -- Memory addressing destination omission of BASE (x86 AT&T)
+==========
+movq $rax, 4(, %rdi, 8)
+---
+
+(program
+  (instruction
+    (word)
+    (ident
+      (reg
+        (address)))
+    (ptr
+      (int)
+      (reg))))
