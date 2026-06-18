@@ -91,3 +91,236 @@ length: .word 8
           (meta_ident)
           (int))))
 
+==========
+Label and Operator -- prefix operator negative
+==========
+.quad -2
+---
+(program
+  (meta
+    (meta_ident)
+    (int
+      (prefix_operator))))
+==========
+Label and Operator -- prefix operator tilde
+==========
+.quad ~2
+---
+(program
+  (meta
+    (meta_ident)
+    (int
+      (prefix_operator))))
+==========
+Label and Operator -- Multiplication
+==========
+.quad 1*2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Division
+==========
+.quad 1/2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Remainder
+==========
+.quad 1%2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Shift Left Simple
+==========
+.quad 1<2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Shift Left Double
+==========
+.quad 1<<2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Shift Right Simple
+==========
+.quad 1>2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Shift Right Double
+==========
+.quad 1>>2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Bitwise Inclusive Or
+==========
+.quad 1|2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Bitwise And
+==========
+.quad 1&2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Bitwise Exclusive Or
+==========
+.quad 1^2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Bitwise Or Not
+==========
+.quad 1!2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Addition
+==========
+.quad 1+2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Subtraction
+==========
+.quad 1-2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int))))
+==========
+Label and Operator -- Addition with negative
+==========
+.quad 1+-2
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int
+        (prefix_operator)))))
+==========
+Label and Operator -- Addition with multiple operands
+==========
+.quad 1+1+1
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (op_expr
+        (int)
+        (infix_operator)
+        (int)))))
+==========
+Label and Operator -- Addition with multiple operands and prefix operator
+==========
+.quad 1+1+-1
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (op_expr
+        (int)
+        (infix_operator)
+        (int
+          (prefix_operator))))))
+==========
+Label and Operator -- Addition with multiple operands and prefix operator
+==========
+.quad 1--1
+---
+(program
+  (meta
+    (meta_ident)
+    (op_expr
+      (int)
+      (infix_operator)
+      (int
+        (prefix_operator)))))

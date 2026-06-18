@@ -109,7 +109,17 @@
   {
     "type": "int",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "prefix_operator",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "label",
@@ -148,6 +158,7 @@
   {
     "type": "line_comment",
     "named": true,
+    "extra": true,
     "fields": {}
   },
   {
@@ -197,6 +208,10 @@
           "named": true
         },
         {
+          "type": "op_expr",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         }
@@ -204,8 +219,89 @@
     }
   },
   {
+    "type": "op_expr",
+    "named": true,
+    "fields": {
+      "lhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "ptr",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "op": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "infix_operator",
+            "named": true
+          }
+        ]
+      },
+      "rhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "ident",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "op_expr",
+            "named": true
+          },
+          {
+            "type": "ptr",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "program",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -418,6 +514,10 @@
     "named": false
   },
   {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -435,7 +535,8 @@
   },
   {
     "type": "block_comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "byte",
@@ -454,11 +555,19 @@
     "named": true
   },
   {
+    "type": "infix_operator",
+    "named": true
+  },
+  {
     "type": "label",
     "named": false
   },
   {
     "type": "meta_ident",
+    "named": true
+  },
+  {
+    "type": "prefix_operator",
     "named": true
   },
   {
@@ -475,11 +584,11 @@
   },
   {
     "type": "word",
-    "named": false
+    "named": true
   },
   {
     "type": "word",
-    "named": true
+    "named": false
   },
   {
     "type": "{",

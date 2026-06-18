@@ -26,7 +26,11 @@ module.exports = grammar({
             seq(
                 field('kind', $.meta_ident),
                 optional(choice(
-                    $.ident,
+                    seq(
+                      $.ident, // macro name
+                      optional(seq($._macro_arg, repeat(seq(',', $._macro_arg))))
+                    ),
+                    $.op_expr,
                     seq($.int, repeat(seq(',', $.int))),
                     seq($.float, repeat(seq(',', $.float))),
                     seq($.string, repeat(seq(',', $.string))),
@@ -115,9 +119,9 @@ module.exports = grammar({
             ),
 
         int: $ => {
-            const _int = /-?([0-9][0-9_]*|(0x|\$)[0-9A-Fa-f][0-9A-Fa-f_]*|0b[01][01_]*)/
+            const _int = /([0-9][0-9_]*|(0x|\$)[0-9A-Fa-f][0-9A-Fa-f_]*|0b[01][01_]*)/
             return choice(
-                seq('#', token.immediate(_int)),
+                seq(seq(optional('#'), optional($.prefix_operator)), token.immediate(_int)),
                 _int,
             )
         },
@@ -128,13 +132,22 @@ module.exports = grammar({
                 /'[^']*'/
 	    ),
 
-        word: $ => /[a-zA-Z0-9_]+/,
+        word: $ => /[\\a-zA-Z0-9_]+/,
         _reg: $ => /%?[a-z0-9]+/,
         address: $ => /[=\$][a-zA-Z0-9_]+/, // GAS x86 address
         reg: $ => choice($._reg, $.word, $.address),
         meta_ident: $ => /\.[a-z_]+/,
         _ident: $ => /[a-zA-Z_0-9.]+/,
         ident: $ => choice($._ident, $.meta_ident, $.reg),
+        _macro_arg_value: $ => choice($.int, $.float, $.string, $.ident),
+        _macro_arg: $ => seq($.ident, optional(seq("=", $._macro_arg_value))),
+        prefix_operator: $ => /[~-]/,
+        infix_operator: $ => /[\/%*<>|&^!+-]|<<|>>/,
+        op_expr: $ => seq(
+          field('lhs', $._expr),
+          field('op', $.infix_operator),
+          field('rhs', choice($._expr, $.op_expr)),
+        ),
 
         line_comment: $ =>
             choice(

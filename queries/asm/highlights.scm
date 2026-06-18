@@ -48,7 +48,10 @@
   "|"
   "^"
   "&"
+  "!"
 ] @operator
+
+(infix_operator) @operator
 
 [
   "("
