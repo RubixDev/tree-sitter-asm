@@ -189,3 +189,16 @@ LDR A1, =addr
     (ident
       (reg
         (address)))))
+
+==========
+Instruction -- Negative constant arg
+==========
+movq $-1, %rax
+---
+
+(program
+  (instruction
+    (word)
+    (int)
+    (ident
+      (reg))))
