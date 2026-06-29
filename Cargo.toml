@@ -12,7 +12,7 @@ readme = "README.md"
 autoexamples = false
 
 build = "bindings/rust/build.rs"
-include = ["bindings/rust/*", "grammar.js", "queries/*", "src/*", "tree-sitter.json"]
+include = ["LICENSE", "bindings/rust/*", "grammar.js", "queries/*", "src/*", "tree-sitter.json"]
 
 [features]
 wasm = ["dep:tree-sitter-wasm-build-tool"]
