@@ -189,3 +189,267 @@ LDR A1, =addr
     (ident
       (reg
         (address)))))
+
+==========
+Instruction -- Far jump, segment and offset
+==========
+        jmp     0x08:long_start
+---
+(program
+    (instruction
+      kind: (word)
+      (far_ptr
+        seg: (int)
+        off: (ident
+          (reg
+            (word))))))
+
+==========
+Instruction -- Address pointer with the NASM rel keyword
+==========
+        mov     [rel syscall_kernel_rsp], rsp
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (reg
+          (word)))
+      (ident
+        (reg
+          (word)))))
+
+==========
+Instruction -- Size prefix without the ptr keyword (NASM)
+==========
+        mov     dword [edi + 4], 0
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (reg
+          (word))
+        (int))
+      (int)))
+
+==========
+Instruction -- RIP-relative symbol (GAS x86)
+==========
+        lea     ltab(%rip), %r12
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (ident
+          (reg
+            (word)))
+        (reg))
+      (ident
+        (reg))))
+
+==========
+Instruction -- x87 stack register (GAS x86)
+==========
+        fstp    %st(0)
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (ident
+          (reg))
+        (int))))
+
+==========
+Instruction -- MASM segment override and size prefix
+==========
+        mov     esi,ds:dword ptr[_bbextents]
+---
+(program
+    (instruction
+      kind: (word)
+      (ident
+        (reg
+          (word)))
+      (ptr
+        (reg
+          (word)))))
+
+==========
+Instruction -- Motorola size suffix on the mnemonic
+==========
+	bsr.w	InitThing
+---
+(program
+    (instruction
+      kind: (word)
+      (ident
+        (reg
+          (word)))))
+
+==========
+Instruction -- 68000 absolute addressing, size after the parens
+==========
+	jsr	(Random).l
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (reg
+          (word))
+        (size_suffix))))
+
+==========
+Instruction -- 68000 PC-relative operand
+==========
+	jsr	PlaySound(pc)
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (ident
+          (reg
+            (word)))
+        (reg
+          (word)))))
+
+==========
+Instruction -- 68000 post-increment
+==========
+	move.w	(a2)+,d0
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (reg
+          (word)))
+      (ident
+        (reg
+          (word)))))
+
+==========
+Instruction -- 68000 pre-decrement
+==========
+	move.l	d0,-(sp)
+---
+(program
+    (instruction
+      kind: (word)
+      (ident
+        (reg
+          (word)))
+      (ptr
+        (reg
+          (word)))))
+
+==========
+Instruction -- 68000 indexed addressing with a size on the index register
+==========
+	move.w	2(a2,d0.w),d1
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (int)
+        (reg
+          (word))
+        (reg
+          (word)))
+      (ident
+        (reg
+          (word)))))
+
+==========
+Instruction -- 68000 PC-relative indexed, the jump-table dispatch form
+==========
+	jmp	Table(pc,d0.w)
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (ident
+          (reg
+            (word)))
+        (reg
+          (word))
+        (reg
+          (word)))))
+
+==========
+Instruction -- 68000 absolute short address written without parentheses
+==========
+	lea	$ffffdb58.w,a2
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (int)
+        (size_suffix))
+      (ident
+        (reg
+          (word)))))
+
+==========
+Instruction -- 68000 absolute address computed at assembly time
+==========
+	lea	(Table+2).w,a4
+---
+(program
+    (instruction
+      kind: (word)
+      (expr
+        (expr
+          lhs: (ident
+            (reg
+              (word)))
+          rhs: (int))
+        (size_suffix))
+      (ident
+        (reg
+          (word)))))
+
+==========
+Instruction -- a sum after a parenthesised macro call is addition, not post-increment (GAS)
+==========
+	movl	C(modelorg)+4,%eax
+---
+(program
+    (instruction
+      kind: (word)
+      (expr
+        lhs: (ptr
+          (ident
+            (reg
+              (word)))
+          (reg
+            (word)))
+        rhs: (int))
+      (ident
+        (reg))))
+
+==========
+Instruction -- 68020 scaled index
+==========
+	move.l	8(a0,d1.w*4),d2
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (int)
+        (reg
+          (word))
+        (reg
+          (word))
+        (int))
+      (ident
+        (reg
+          (word)))))

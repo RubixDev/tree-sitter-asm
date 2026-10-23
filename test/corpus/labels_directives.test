@@ -91,3 +91,133 @@ length: .word 8
           (meta_ident)
           (int))))
 
+
+==========
+Directive -- Identifier with digits (.code32)
+==========
+.code32
+---
+(program
+    (meta
+      kind: (meta_ident)))
+
+==========
+Directive -- Mixed identifier and integer args
+==========
+.lcomm env, 32
+---
+(program
+    (meta
+      kind: (meta_ident)
+      (ident
+        (reg
+          (word)))
+      (int)))
+
+==========
+Directive -- NASM equ with the here symbol
+==========
+.msg_len equ $ - .msg
+---
+(program
+    (meta
+      kind: (meta_ident)
+      (ident
+        (reg
+          (word)))
+      (expr
+        lhs: (ident
+          (reg
+            (address)))
+        rhs: (ident
+          (meta_ident)))))
+
+==========
+Directive -- MASM processor directive
+==========
+ .386P
+---
+(program
+    (meta
+      kind: (meta_ident)))
+
+==========
+MASM data definition -- name without a colon
+==========
+reciprocal_table_16 dd 040000000h, 02aaaaaaah
+---
+(program
+    (masm_data
+      name: (word)
+      (int)
+      (int)))
+
+==========
+Label -- 68000 label with an instruction on the same line
+==========
+Random:	move.w	d0,d1
+---
+(program
+    (label
+      (ident)
+      (instruction
+        kind: (word)
+        (ident
+          (reg
+            (word)))
+        (ident
+          (reg
+            (word))))))
+
+==========
+Label -- declared through a macro, the argument is the symbol (GAS)
+==========
+C(d_zistepv):	.single	0
+---
+(program
+    (label
+      (ident)
+      name: (ident
+        (reg
+          (word)))
+      (meta
+        kind: (meta_ident)
+        (int))))
+
+==========
+Directive -- bare `=` assignment with a space (Amiga library vector offsets)
+==========
+_LVOOpen	= -$1e
+---
+(program
+    (instruction
+      kind: (word)
+      (ident
+        (reg
+          (address)))
+      (int)))
+
+==========
+Directive -- Amiga STRUCTURE declaration and its field macros
+==========
+	STRUCTURE FileHandle,0
+	APTR	fh_Link
+	LABEL	fh_SIZEOF
+---
+(program
+    (instruction
+      kind: (word)
+      (ident
+        (reg
+          (word)))
+      (int))
+    (instruction
+      kind: (word)
+      (ident
+        (reg
+          (word))))
+    (instruction
+      kind: (word)
+      (ident
+        (reg
+          (word)))))

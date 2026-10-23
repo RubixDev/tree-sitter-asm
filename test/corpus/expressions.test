@@ -1,0 +1,126 @@
+==========
+Expression -- Unary minus over a parenthesised sum
+==========
+        dd      -(MB2_MAGIC + MB2_ARCH)
+---
+(program
+    (instruction
+      kind: (word)
+      (expr
+        (expr
+          (expr
+            lhs: (ident
+              (reg
+                (word)))
+            rhs: (ident
+              (reg
+                (word))))))))
+
+==========
+Expression -- Parenthesised difference divided by a literal
+==========
+        mov     ecx, (page_tables_end - pml4) / 4
+---
+(program
+    (instruction
+      kind: (word)
+      (ident
+        (reg
+          (word)))
+      (expr
+        lhs: (expr
+          (expr
+            lhs: (ident
+              (reg
+                (word)))
+            rhs: (ident
+              (reg
+                (word)))))
+        rhs: (int))))
+
+==========
+Expression -- Product inside a memory reference
+==========
+        mov     [pml4 + 511*8], eax
+---
+(program
+    (instruction
+      kind: (word)
+      (ptr
+        (reg
+          (word))
+        (expr
+          lhs: (int)
+          rhs: (int)))
+      (ident
+        (reg
+          (word)))))
+
+==========
+Expression -- Motorola `!` is bitwise OR
+==========
+	dc.l	(CMD_WRITE!TDF_EXTCOM)
+---
+(program
+    (instruction
+      kind: (word)
+      (expr
+        (expr
+          lhs: (ident
+            (reg
+              (word)))
+          rhs: (ident
+            (reg
+              (word)))))))
+
+==========
+Expression -- Immediate holding an expression, not a literal
+==========
+	move.w	#(SIZEX+SIZEY)/4-1,d0
+---
+(program
+    (instruction
+      kind: (word)
+      (expr
+        lhs: (expr
+          lhs: (immediate
+            (expr
+              (expr
+                lhs: (ident
+                  (reg
+                    (word)))
+                rhs: (ident
+                  (reg
+                    (word))))))
+          rhs: (int))
+        rhs: (int))
+      (ident
+        (reg
+          (word)))))
+
+==========
+Expression -- Immediate holding a character literal
+==========
+	add.b	#'0',d0
+---
+(program
+    (instruction
+      kind: (word)
+      (immediate
+        (string))
+      (ident
+        (reg
+          (word)))))
+
+==========
+Expression -- Motorola `*` is the current address
+==========
+	bra.s	*-$10
+---
+(program
+    (instruction
+      kind: (word)
+      (ident
+        (reg
+          (address)))
+      (int)))

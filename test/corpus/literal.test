@@ -86,3 +86,13 @@ Comma separated list of string literals
         (string)
         (string)
         (string)))
+
+==========
+Integer literal MASM hex with trailing h
+==========
+        dd      040000000h
+---
+(program
+    (instruction
+      kind: (word)
+      (int)))

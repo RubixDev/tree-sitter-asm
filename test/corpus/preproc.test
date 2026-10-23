@@ -1,0 +1,9 @@
+==========
+Preprocessor -- NASM include
+==========
+%include "isr_stubs.inc"
+---
+(program
+    (preproc
+      kind: (preproc_ident)
+      (string)))

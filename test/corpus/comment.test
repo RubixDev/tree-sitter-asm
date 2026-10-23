@@ -47,3 +47,36 @@ Block comment
 ---
 (program
     (block_comment))
+
+==========
+Comment on the first line of a file
+==========
+; a file may open with a comment
+main:
+---
+(program
+    (line_comment)
+    (label
+      (ident)))
+
+==========
+Comment -- Motorola `*` in column zero
+==========
+* a comment in column zero
+	nop
+---
+(program
+    (star_comment)
+    (instruction
+      kind: (word)))
+
+==========
+Comment -- Motorola banner of asterisks
+==========
+*****************************
+	nop
+---
+(program
+    (star_comment)
+    (instruction
+      kind: (word)))
