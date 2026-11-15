@@ -19,9 +19,17 @@ module.exports = grammar({
                 $.meta,
                 $.label,
                 $.const,
+                $.macro,
                 $.instruction,
             ),
-
+        macro: $ => (
+            seq(
+                field('macro_name', $.macro_name),
+                field('variable', $.word),
+                choice(sep(',', $._expr),
+                repeat($._tc_expr)),
+            )
+        ),
         meta: $ =>
             seq(
                 field('kind', $.meta_ident),
@@ -129,6 +137,7 @@ module.exports = grammar({
 	    ),
 
         word: $ => /[a-zA-Z0-9_]+/,
+        macro_name: $ => /%[a-zA-Z0-9_]+/,
         _reg: $ => /%?[a-z0-9]+/,
         address: $ => /[=\$][a-zA-Z0-9_]+/, // GAS x86 address
         reg: $ => choice($._reg, $.word, $.address),
