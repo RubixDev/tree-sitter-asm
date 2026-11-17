@@ -1,5 +1,20 @@
 [
   {
+    "type": "bit_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "int",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "const",
     "named": true,
     "fields": {
@@ -31,6 +46,22 @@
           },
           {
             "type": "tc_infix",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "end_macro",
+    "named": true,
+    "fields": {
+      "macro_end": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "macro_mark",
             "named": true
           }
         ]
@@ -170,12 +201,12 @@
     "type": "macro",
     "named": true,
     "fields": {
-      "macro_name": {
+      "macro_start": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "macro_name",
+            "type": "macro_mark",
             "named": true
           }
         ]
@@ -274,7 +305,15 @@
       "required": false,
       "types": [
         {
+          "type": "bit_declaration",
+          "named": true
+        },
+        {
           "type": "const",
+          "named": true
+        },
+        {
+          "type": "end_macro",
           "named": true
         },
         {
@@ -500,6 +539,10 @@
     "named": true
   },
   {
+    "type": "bits",
+    "named": false
+  },
+  {
     "type": "block_comment",
     "named": true,
     "extra": true
@@ -525,7 +568,7 @@
     "named": false
   },
   {
-    "type": "macro_name",
+    "type": "macro_mark",
     "named": true
   },
   {

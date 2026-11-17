@@ -70,11 +70,19 @@
         },
         {
           "type": "SYMBOL",
+          "name": "instruction"
+        },
+        {
+          "type": "SYMBOL",
           "name": "macro"
         },
         {
           "type": "SYMBOL",
-          "name": "instruction"
+          "name": "end_macro"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bit_declaration"
         }
       ]
     },
@@ -83,78 +91,91 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "macro_name",
+          "name": "macro_start",
           "content": {
             "type": "SYMBOL",
-            "name": "macro_name"
+            "name": "macro_mark"
           }
         },
         {
-          "type": "FIELD",
-          "name": "variable",
-          "content": {
-            "type": "SYMBOL",
-            "name": "word"
-          }
-        },
-        {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
+            {
+              "type": "FIELD",
+              "name": "variable",
+              "content": {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            },
             {
               "type": "CHOICE",
               "members": [
                 {
-                  "type": "SEQ",
+                  "type": "CHOICE",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "_expr"
-                    },
-                    {
-                      "type": "REPEAT",
-                      "content": {
-                        "type": "SEQ",
-                        "members": [
-                          {
-                            "type": "STRING",
-                            "value": ","
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "_expr"
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "CHOICE",
+                      "type": "SEQ",
                       "members": [
                         {
-                          "type": "STRING",
-                          "value": ","
+                          "type": "SYMBOL",
+                          "name": "_expr"
                         },
                         {
-                          "type": "BLANK"
+                          "type": "REPEAT",
+                          "content": {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "STRING",
+                                "value": ","
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "_expr"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": ","
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
                         }
                       ]
+                    },
+                    {
+                      "type": "BLANK"
                     }
                   ]
                 },
                 {
-                  "type": "BLANK"
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_tc_expr"
+                  }
                 }
               ]
-            },
-            {
-              "type": "REPEAT",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_tc_expr"
-              }
             }
           ]
         }
       ]
+    },
+    "end_macro": {
+      "type": "FIELD",
+      "name": "macro_end",
+      "content": {
+        "type": "SYMBOL",
+        "name": "macro_mark"
+      }
     },
     "meta": {
       "type": "SEQ",
@@ -1037,6 +1058,27 @@
         }
       ]
     },
+    "bit_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "STRING",
+          "value": "bits"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "int"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
     "int": {
       "type": "CHOICE",
       "members": [
@@ -1083,7 +1125,7 @@
       "type": "PATTERN",
       "value": "[a-zA-Z0-9_]+"
     },
-    "macro_name": {
+    "macro_mark": {
       "type": "PATTERN",
       "value": "%[a-zA-Z0-9_]+"
     },
