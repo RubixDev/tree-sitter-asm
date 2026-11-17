@@ -20,8 +20,21 @@ module.exports = grammar({
                 $.label,
                 $.const,
                 $.instruction,
+                $.macro,
+                $.end_macro,
+                $.bit_declaration,
             ),
-
+        macro: $ => (
+            seq(
+                field('macro_start', $.macro_mark),
+                seq(
+                  field('variable', $.word),
+                  choice(sep(',', $._expr),
+                  repeat($._tc_expr)),
+                ),
+            )
+        ),
+        end_macro: $ => field("macro_end", $.macro_mark),
         meta: $ =>
             seq(
                 field('kind', $.meta_ident),
@@ -113,7 +126,7 @@ module.exports = grammar({
                     )
                 ),
             ),
-
+        bit_declaration: $ => seq("[", "bits", $.int, "]"),
         int: $ => {
             const _int = /-?([0-9][0-9_]*|(0x|\$)[0-9A-Fa-f][0-9A-Fa-f_]*|0b[01][01_]*)/
             return choice(
@@ -126,9 +139,10 @@ module.exports = grammar({
             choice(
                 /"[^"]*"/,
                 /'[^']*'/
-	    ),
+            ),
 
         word: $ => /[a-zA-Z0-9_]+/,
+        macro_mark: $ => /%[a-zA-Z0-9_]+/,
         _reg: $ => /%?[a-z0-9]+/,
         address: $ => /[=\$][a-zA-Z0-9_]+/, // GAS x86 address
         reg: $ => choice($._reg, $.word, $.address),

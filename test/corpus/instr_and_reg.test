@@ -189,3 +189,68 @@ LDR A1, =addr
     (ident
       (reg
         (address)))))
+
+==========
+Instruction -- define
+=========
+%define ENDL 0x0D, 0x0A
+
+---
+
+(program
+  (macro
+    (macro_mark)
+    (word)
+    (int)
+    (int)))
+
+==========
+Instruction -- macro
+=========
+%macro LinearToSegOffset 4
+
+    mov %3, %1      ; linear address to eax
+    shr %3, 4
+    mov %2, %4
+    mov %3, %1      ; linear address to eax
+    and %3, 0xf
+
+%endmacro
+---
+(program
+  (macro
+    (macro_mark)
+    (word)
+    (int))
+  (instruction
+    (word)
+    (ident
+      (reg))
+    (ident
+      (reg)))
+  (line_comment)
+  (instruction
+    (word)
+    (ident
+      (reg))
+    (int))
+  (instruction
+    (word)
+    (ident
+      (reg))
+    (ident
+      (reg)))
+  (instruction
+    (word)
+    (ident
+      (reg))
+    (ident
+      (reg)))
+  (line_comment)
+  (instruction
+    (word)
+    (ident
+      (reg))
+    (int))
+  (end_macro
+    (macro_mark)))

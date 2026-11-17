@@ -1,5 +1,20 @@
 [
   {
+    "type": "bit_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "int",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "const",
     "named": true,
     "fields": {
@@ -31,6 +46,22 @@
           },
           {
             "type": "tc_infix",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "end_macro",
+    "named": true,
+    "fields": {
+      "macro_end": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "macro_mark",
             "named": true
           }
         ]
@@ -148,6 +179,7 @@
   {
     "type": "line_comment",
     "named": true,
+    "extra": true,
     "fields": {}
   },
   {
@@ -160,6 +192,66 @@
       "types": [
         {
           "type": "reg",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "macro",
+    "named": true,
+    "fields": {
+      "macro_start": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "macro_mark",
+            "named": true
+          }
+        ]
+      },
+      "variable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "word",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "ident",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "ptr",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "tc_infix",
           "named": true
         }
       ]
@@ -206,13 +298,22 @@
   {
     "type": "program",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
       "required": false,
       "types": [
         {
+          "type": "bit_declaration",
+          "named": true
+        },
+        {
           "type": "const",
+          "named": true
+        },
+        {
+          "type": "end_macro",
           "named": true
         },
         {
@@ -221,6 +322,10 @@
         },
         {
           "type": "label",
+          "named": true
+        },
+        {
+          "type": "macro",
           "named": true
         },
         {
@@ -434,8 +539,13 @@
     "named": true
   },
   {
+    "type": "bits",
+    "named": false
+  },
+  {
     "type": "block_comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "byte",
@@ -456,6 +566,10 @@
   {
     "type": "label",
     "named": false
+  },
+  {
+    "type": "macro_mark",
+    "named": true
   },
   {
     "type": "meta_ident",
